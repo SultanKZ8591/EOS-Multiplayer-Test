@@ -91,7 +91,7 @@ func spawn_all_players() -> void:
 			print("Spawn failed for peer ", peer_id)
 			continue
 
-		player.global_position = spawnpoints.get_child(i).global_position
+		player.global_position = spawnpoints.get_child(i).global_position + Vector3.UP * 1.0
 
 		print(
 			"Player ",
