@@ -1,5 +1,7 @@
 extends Node3D
 
+var main_menu_scene = "res://EOS_Test.tscn"
+
 const PLAYER_SCENE := preload("res://player.tscn")
 
 @onready var players: Node3D = $Players
@@ -109,4 +111,4 @@ func _on_host_disconnected() -> void:
 
 	GameState.disconnect_message = "ERROR: Host left the game"
 
-	get_tree().change_scene_to_file("res://main_menu.tscn")
+	get_tree().change_scene_to_file(main_menu_scene)
