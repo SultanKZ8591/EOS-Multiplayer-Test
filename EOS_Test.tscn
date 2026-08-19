@@ -68,3 +68,11 @@ offset_right = 448.0
 offset_bottom = 592.0
 theme_override_font_sizes/font_size = 54
 text = "Join"
+
+[node name="StartButton" type="Button" parent="." unique_id=1513906055]
+layout_mode = 0
+offset_left = 776.0
+offset_top = 472.0
+offset_right = 896.0
+offset_bottom = 512.0
+text = "START"

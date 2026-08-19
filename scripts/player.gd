@@ -10,7 +10,6 @@ const GRAVITY := 15.0
 
 var pitch := 0.0
 
-# Получаем последнее отправленное состояние
 var network_position := Vector3.ZERO
 var network_yaw := 0.0
 var network_pitch := 0.0
@@ -19,12 +18,16 @@ var send_timer := 0.0
 const SEND_INTERVAL := 0.05
 
 
+func _enter_tree() -> void:
+	if name.is_valid_int():
+		set_multiplayer_authority(int(name))
+
+
 func _ready() -> void:
 	network_position = global_position
 	network_yaw = rotation.y
 	network_pitch = pitch
 
-	# Только локальный игрок управляет камерой
 	if is_multiplayer_authority():
 		camera.current = true
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
