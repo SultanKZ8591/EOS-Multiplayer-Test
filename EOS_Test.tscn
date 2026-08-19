@@ -78,7 +78,6 @@ offset_bottom = 512.0
 text = "START"
 
 [node name="ErrorLabel" type="Label" parent="." unique_id=802718011]
-visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
