@@ -1,5 +1,9 @@
 extends Control
 
+var main_menu_scene = "res://EOS_Test.tscn"
+
+@onready var error_label: Label = $ErrorLabel
+
 const EOSCredentials = preload("res://scripts/EOSCredentials.gd")
 
 @onready var start_button: Button = $StartButton
@@ -20,6 +24,8 @@ const LOBBY_BUCKET := "project_core_test"
 const SOCKET_NAME := "ProjectCoreTest"
 
 func _ready() -> void:
+	multiplayer.server_disconnected.connect(_on_host_disconnected)
+	
 	start_button.pressed.connect(_on_start_pressed)
 	start_button.visible = false
 	
@@ -69,6 +75,19 @@ func _ready() -> void:
 	if PlayerProfile.nickname != "":
 		nickname_edit.text = PlayerProfile.nickname
 
+	if GameState.disconnect_message != "":
+		error_label.text = GameState.disconnect_message
+		error_label.visible = true
+		GameState.disconnect_message = ""
+
+func _on_host_disconnected() -> void:
+	print("Host left the game!")
+
+	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
+
+	GameState.disconnect_message = "ERROR: Host left the game"
+
+	get_tree().change_scene_to_file(main_menu_scene)
 
 func _on_continue_pressed() -> void:
 	var nickname := nickname_edit.text.strip_edges()

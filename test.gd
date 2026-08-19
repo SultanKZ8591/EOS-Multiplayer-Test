@@ -11,6 +11,8 @@ var ready_peers: Array[int] = []
 
 
 func _ready() -> void:
+	multiplayer.server_disconnected.connect(_on_host_disconnected)
+	
 	spawner.spawn_function = _spawn_player
 
 	if multiplayer.is_server():
@@ -99,3 +101,12 @@ func spawn_all_players() -> void:
 			" spawned at ",
 			spawnpoints.get_child(i).name
 		)
+
+func _on_host_disconnected() -> void:
+	print("Host left the game!")
+
+	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
+
+	GameState.disconnect_message = "ERROR: Host left the game"
+
+	get_tree().change_scene_to_file("res://main_menu.tscn")
